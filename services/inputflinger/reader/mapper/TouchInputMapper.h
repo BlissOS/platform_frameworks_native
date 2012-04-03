@@ -286,6 +286,7 @@ protected:
             NONE,
             PHYSICAL,
             AMPLITUDE,
+            DISABLE,
         };
 
         PressureCalibration pressureCalibration;
