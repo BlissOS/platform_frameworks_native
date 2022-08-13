@@ -124,13 +124,13 @@ public:
 
     virtual std::optional<HardwareProperties> getTouchpadHardwareProperties();
 
+    std::optional<RawAbsoluteAxisInfo> getAbsoluteAxisInfo(int32_t axis);
 protected:
     InputDeviceContext& mDeviceContext;
 
     explicit InputMapper(InputDeviceContext& deviceContext,
                          const InputReaderConfiguration& readerConfig);
 
-    std::optional<RawAbsoluteAxisInfo> getAbsoluteAxisInfo(int32_t axis);
     void bumpGeneration();
 
     static void dumpRawAbsoluteAxisInfo(std::string& dump,
