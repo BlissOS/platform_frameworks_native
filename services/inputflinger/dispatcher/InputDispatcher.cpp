@@ -2256,7 +2256,7 @@ std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
 
     bool isSplit = shouldSplitTouch(tempTouchState, entry);
     const bool switchedDevice = (oldState != nullptr) &&
-            (oldState->deviceId != entry.deviceId || oldState->source != entry.source);
+            (oldState->deviceId != entry.deviceId);
 
     const bool isHoverAction = (maskedAction == AMOTION_EVENT_ACTION_HOVER_MOVE ||
                                 maskedAction == AMOTION_EVENT_ACTION_HOVER_ENTER ||

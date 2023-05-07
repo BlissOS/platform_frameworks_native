@@ -99,6 +99,9 @@ struct InputReaderConfiguration {
 
         // All devices must be reopened.
         MUST_REOPEN = 1u << 31,
+
+        // Force mouse as touch setting changed.
+        FORCE_MOUSE_AS_TOUCH = 1u << 20,
     };
 
     // Gets the amount of time to disable virtual keys after the screen is touched
@@ -137,6 +140,9 @@ struct InputReaderConfiguration {
 
     // True if pointer gestures are enabled.
     bool pointerGesturesEnabled;
+
+    // True if pointer touch emulation is enabled.
+    bool forceMouseAsTouch;
 
     // Quiet time between certain pointer gesture transitions.
     // Time to allow for all fingers or buttons to settle into a stable state before
@@ -242,6 +248,7 @@ struct InputReaderConfiguration {
                                                              DEFAULT_POINTER_ACCELERATION)),
             wheelVelocityControlParameters(1.0f, 15.0f, 50.0f, 4.0f),
             pointerGesturesEnabled(true),
+            forceMouseAsTouch(false),
             pointerGestureQuietInterval(100 * 1000000LL),            // 100 ms
             pointerGestureDragMinSwitchSpeed(50),                    // 50 pixels per second
             pointerGestureTapInterval(150 * 1000000LL),              // 150 ms
