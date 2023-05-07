@@ -1259,7 +1259,6 @@ void TouchInputMapper::resolveCalibration() {
         if (mCalibration.pressureCalibration == Calibration::PressureCalibration::DEFAULT) {
             mCalibration.pressureCalibration = Calibration::PressureCalibration::PHYSICAL;
         } else if (mCalibration.pressureCalibration == Calibration::PressureCalibration::DISABLE) {
-            mRawPointerAxes.pressure.valid = false;
             mCalibration.pressureCalibration = Calibration::PressureCalibration::NONE;
         }
     } else {
