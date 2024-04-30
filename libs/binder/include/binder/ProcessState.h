@@ -92,6 +92,7 @@ public:
 
     enum class DriverFeature {
         ONEWAY_SPAM_DETECTION,
+        FREEZE_NOTIFICATION,
     };
     // Determine whether a feature is supported by the binder driver.
     static bool isDriverFeatureEnabled(const DriverFeature feature);
