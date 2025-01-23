@@ -266,7 +266,7 @@ static_assert(static_cast<common::Axis>(AMOTION_EVENT_AXIS_GENERIC_16) == common
 // If you added a new axis, consider whether this should also be exposed as a HAL axis. Update the
 // static_assert below and add the new axis here, or leave a comment summarizing your decision.
 static_assert(static_cast<common::Axis>(AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE) ==
-              static_cast<common::Axis>(AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT));
+              static_cast<common::Axis>(AMOTION_EVENT_AXIS_MOUSE_ABS_Y));
 
 static common::VideoFrame getHalVideoFrame(const TouchVideoFrame& frame) {
     common::VideoFrame out;

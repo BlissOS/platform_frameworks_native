@@ -17,6 +17,7 @@
 #define LOG_TAG "PointerChoreographer"
 
 #include <android-base/logging.h>
+#include <android-base/properties.h>
 #include <com_android_input_flags.h>
 #if defined(__ANDROID__)
 #include <gui/SurfaceComposerClient.h>
@@ -231,6 +232,9 @@ NotifyMotionArgs PointerChoreographer::processMouseEventLocked(const NotifyMotio
     NotifyMotionArgs newArgs(args);
     newArgs.displayId = displayId;
 
+    const float absX = args.pointerCoords[0].getAxisValue(AMOTION_EVENT_AXIS_MOUSE_ABS_X);
+    const float absY = args.pointerCoords[0].getAxisValue(AMOTION_EVENT_AXIS_MOUSE_ABS_Y);
+
     if (MotionEvent::isValidCursorPosition(args.xCursorPosition, args.yCursorPosition)) {
         // This is an absolute mouse device that knows about the location of the cursor on the
         // display, so set the cursor position to the specified location.
@@ -240,6 +244,15 @@ NotifyMotionArgs PointerChoreographer::processMouseEventLocked(const NotifyMotio
         newArgs.pointerCoords[0].setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_X, deltaX);
         newArgs.pointerCoords[0].setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_Y, deltaY);
         pc.setPosition(args.xCursorPosition, args.yCursorPosition);
+    } else if (MotionEvent::isValidCursorPosition(absX, absY)) {
+        // This is also an absolute mouse device but doesn't get axis from xCursorPosition 
+        // or yCursorPosition
+        const auto [x, y] = pc.getPosition();
+        const float deltaX = absX - x;
+        const float deltaY = absY - y;
+        newArgs.pointerCoords[0].setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_X, deltaX);
+        newArgs.pointerCoords[0].setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_Y, deltaY);
+        pc.setPosition(absX, absY);
     } else {
         // This is a relative mouse, so move the cursor by the specified amount.
         const float deltaX = args.pointerCoords[0].getAxisValue(AMOTION_EVENT_AXIS_RELATIVE_X);

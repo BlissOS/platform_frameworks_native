@@ -831,17 +831,33 @@ enum {
      */
     AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT = 53,
 
+    // NOTE: If you add a new axis here you must also add it to several other files.
+    //       Refer to frameworks/base/core/java/android/view/MotionEvent.java for the full list.
+    //       Update AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE accordingly as well.
+
+    /**
+     * Axis constant: X axis of a motion event.
+     *
+     * Handling a special case of an input that reports absolute X screen position such as
+     * mouse on virtual machine that emulate a drawing tablet.
+     */
+    AMOTION_EVENT_AXIS_MOUSE_ABS_X = 54,
+
+    /**
+     * Axis constant: Y axis of a motion event.
+     *
+     * Handling a special case of an input that reports absolute Y screen position such as
+     * mouse on virtual machine that emulate a drawing tablet.
+     */
+    AMOTION_EVENT_AXIS_MOUSE_ABS_Y = 55,
+
     /**
      * Note: This is not an "Axis constant". It does not represent any axis, nor should it be used
      * to represent any axis. It is a constant holding the value of the largest defined axis value,
      * to make some computations (like iterating through all possible axes) cleaner.
      * Please update the value accordingly if you add a new axis.
      */
-    AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE = AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT,
-
-    // NOTE: If you add a new axis here you must also add it to several other files.
-    //       Refer to frameworks/base/core/java/android/view/MotionEvent.java for the full list.
-    //       Update AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE accordingly as well.
+    AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE = AMOTION_EVENT_AXIS_MOUSE_ABS_Y,
 };
 
 /**

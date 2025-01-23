@@ -22,6 +22,7 @@
 
 #include <optional>
 
+#include <android-base/properties.h>
 #include <com_android_input_flags.h>
 #include <ftl/enum.h>
 #include <input/AccelerationCurve.h>
@@ -168,6 +169,8 @@ void CursorInputMapper::populateDeviceInfo(InputDeviceInfo& info) {
     if (mCursorScrollAccumulator.haveRelativeHWheel()) {
         info.addMotionRange(AMOTION_EVENT_AXIS_HSCROLL, mSource, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
     }
+    info.addMotionRange(AMOTION_EVENT_AXIS_MOUSE_ABS_X, mSource, -1.0f, 1.0f, 0.0f, mAbsXScale, 0.0f);
+    info.addMotionRange(AMOTION_EVENT_AXIS_MOUSE_ABS_Y, mSource, -1.0f, 1.0f, 0.0f, mAbsYScale, 0.0f);
 }
 
 void CursorInputMapper::dump(std::string& dump) {
@@ -403,6 +406,10 @@ std::list<NotifyArgs> CursorInputMapper::sync(nsecs_t when, nsecs_t readTime) {
     float xCursorPosition = AMOTION_EVENT_INVALID_CURSOR_POSITION;
     float yCursorPosition = AMOTION_EVENT_INVALID_CURSOR_POSITION;
     if (mSource == AINPUT_SOURCE_MOUSE || mSource == AINPUT_SOURCE_TOUCHSCREEN) {
+        if (movedAbs) {
+            pointerCoords.setAxisValue(AMOTION_EVENT_AXIS_MOUSE_ABS_X, absX);
+            pointerCoords.setAxisValue(AMOTION_EVENT_AXIS_MOUSE_ABS_Y, absY);
+        }
         pointerCoords.setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_X, deltaX);
         pointerCoords.setAxisValue(AMOTION_EVENT_AXIS_RELATIVE_Y, deltaY);
     } else {
